@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 
 //routes
 import authRoutes from './routes/authRoutes.js';
@@ -18,6 +19,8 @@ app.get('/', (req, res) => {
 });
 
 app.use(express.json());
+app.use(cookieParser());
+// routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/matches', matchesRoutes);

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-export const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -56,3 +56,16 @@ export const userSchema = new mongoose.Schema({
     },
   ],
 });
+// hashing the password before saving user
+userSchema.pre('save', async (next) => {
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+// checking password
+userSchema.methods.matchPassword = async (enteredPassword) => {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+const User = mongoose.model('user', userSchema);
+
+export default User;
