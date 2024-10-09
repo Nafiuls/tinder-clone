@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import matchesRoutes from './routes/matchesRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
+import { connectDB } from './config/db.js';
 
 const PORT = process.env.PORT || 5000;
 
@@ -24,4 +25,5 @@ app.use('/api/messages', messageRoutes);
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
+  connectDB();
 });
